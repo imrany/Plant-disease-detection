@@ -4,6 +4,7 @@ from flask import Flask, redirect, render_template, request, jsonify
 from flask_cors import CORS
 from PIL import Image
 import torchvision.transforms.functional as TF
+from torchvision import transforms
 import CNN
 import numpy as np
 import torch
@@ -20,9 +21,28 @@ model.eval()
 
 def prediction(image_path):
     image = Image.open(image_path)
-    image = image.resize((224, 224))
-    input_data = TF.to_tensor(image)
-    input_data = input_data.view((-1, 3, 224, 224))
+    
+    # If the image has an alpha channel (4 channels), convert it to RGB (3 channels)
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+
+    # Define the transformation: Resize to 224x224 and convert to tensor
+    transform = transforms.Compose([
+        transforms.Resize((224, 224)),  # Resize image to 224x224
+        transforms.ToTensor(),          # Convert image to PyTorch tensor
+    ])
+
+    # Apply the transformation to the image
+    input_data = transform(image)
+
+    # Apply the transformation to the image
+    input_data = transform(image)
+
+    # Add a batch dimension (1, 3, 224, 224)
+    input_data = input_data.unsqueeze(0)
+    #image = image.resize((224, 224))
+    #input_data = TF.to_tensor(image)
+    #input_data = input_data.view((-1, 3, 224, 224))
     output = model(input_data)
     output = output.detach().numpy()
     index = np.argmax(output)
@@ -73,7 +93,7 @@ def submit():
         supplement_name = supplement_info['supplement name'][pred]
         supplement_image_url = supplement_info['supplement image'][pred]
         supplement_buy_link = supplement_info['buy link'][pred]
-        return jsonify({'message':'Image uploaded successfully!','data':{'title':title , 'description':description , 'prevent':prevent, 'image_url':image_url , 'pred':pred ,'s_name':supplement_name , 's_image':supplement_image_url , 'buy_link':supplement_buy_link}}), 200
+        return jsonify({'message':'Image uploaded successfully!','data':{'title':title , 'description':description , 'prevent':prevent, 'image_url':image_url , 'pred':int(pred) ,'s_name':supplement_name , 's_image':supplement_image_url , 'buy_link':supplement_buy_link}}), 200
 
     except (ValueError,IOError) as e:
         return jsonify({'error':str(e)}), 400
