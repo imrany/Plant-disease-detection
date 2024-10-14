@@ -1,6 +1,7 @@
 import os
 import base64
 from flask import Flask, redirect, render_template, request, jsonify
+from flask_cors import CORS
 from PIL import Image
 import torchvision.transforms.functional as TF
 import CNN
@@ -28,6 +29,7 @@ def prediction(image_path):
 
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}})
 
 @app.route('/')
 def home_page():
@@ -80,4 +82,5 @@ def market():
                            supplement_name = list(supplement_info['supplement name']), disease = list(disease_info['disease_name']), buy = list(supplement_info['buy link']))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
