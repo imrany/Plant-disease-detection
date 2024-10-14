@@ -8,6 +8,7 @@ import CNN
 import numpy as np
 import torch
 import pandas as pd
+import io
 
 
 disease_info = pd.read_csv('disease_info.csv' , encoding='cp1252')
@@ -46,35 +47,36 @@ def mobile_device_detected_page():
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        data=request.json
+        if 'file' not in request.files:
+            return jsonify({'error':'No image found'}), 400
 
-        if 'image' not in data:
-            return jsonify({'error':'No image data found'}), 400
+    file = request.files['file']
 
-        image_data=data['image']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
 
-        # Decode the base64 image
-        try:
-            image_bytes=base64.b64decode(image_data)
-            #Save the image to file
-            filename='upload_image.png'
-            image_path=os.path.join('static/uploads'.filename)
-            with open(image_path, 'wb') as image_file:
-                image_file.write(image_bytes)
+        # Convert the uploaded image into a PIL image for processing
+    try:
+        image = Image.open(io.BytesIO(file.read()))
+        # You can perform image processing here
+        #Save the image to file
+        #filename='upload_image.png'
+        image_path=os.path.join('static/uploads',file.filename)
+        image.save(image_path)           
+            
+        pred = prediction(image_path)
+        print(pred,image_path)
+        title = disease_info['disease_name'][pred]
+        description =disease_info['description'][pred]
+        prevent = disease_info['Possible Steps'][pred]
+        image_url = disease_info['image_url'][pred]
+        supplement_name = supplement_info['supplement name'][pred]
+        supplement_image_url = supplement_info['supplement image'][pred]
+        supplement_buy_link = supplement_info['buy link'][pred]
+        return jsonify({'message':'Image uploaded successfully!','data':{'title':title , 'description':description , 'prevent':prevent, 'image_url':image_url , 'pred':pred ,'s_name':supplement_name , 's_image':supplement_image_url , 'buy_link':supplement_buy_link}}), 200
 
-            pred = prediction(file_path)
-            print(pred,image_path)
-            title = disease_info['disease_name'][pred]
-            description =disease_info['description'][pred]
-            prevent = disease_info['Possible Steps'][pred]
-            image_url = disease_info['image_url'][pred]
-            supplement_name = supplement_info['supplement name'][pred]
-            supplement_image_url = supplement_info['supplement image'][pred]
-            supplement_buy_link = supplement_info['buy link'][pred]
-            return jsonify({'message':'Image uploaded successfully!','data':{'title':title , 'description':description , 'prevent':prevent, 'image_url':image_url , 'pred':pred ,'s_name':supplement_name , 's_image':supplement_image_url , 'buy_link':supplement_buy_link}}), 200
-
-        except (ValueError,IOError) as e:
-            return jsonify({'error':str(e)}), 400
+    except (ValueError,IOError) as e:
+        return jsonify({'error':str(e)}), 400
    
 @app.route('/market', methods=['GET', 'POST'])
 def market():
