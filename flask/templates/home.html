@@ -1,131 +1,48 @@
 {% extends 'base.html' %}
-{% block pagetitle %} Plant Disease Detection {% endblock pagetitle %}
+{% block pagetitle %}
+Plant Disease Detection
+{% endblock pagetitle %}
 
 {% block body %}
-<div class="row mb-5 text-center text-white laptop">
-  <div class="col-lg-10 mx-auto">
-    <h1 class="display-4 pt-8 font-light text-green-800"><b>Plant Disease Detection</b></h1>
-    <p class="lead font-medium text-black">Detect Disease From Following Fruits And Veggies</p>
-  </div>
-</div>
+<div class="mb-4">
+    <div class="container mx-auto p-4">
+        <!-- For demo purpose -->
+        <div class="row mb-5 text-center text-white">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="text-4xl font-bold text-green-300 py-4"><b>Welcome</b></h1>
+                <p class="text-lg font-medium">Plant Disease Detection</p>
+            </div>
+        </div>
+        <!-- End -->
+        <div class="flex flex-col w-full gap-4">
+            <div class="p-5 bg-white shadow-lg rounded-lg h-full">
+                <h5 class="font-bold">Why is it necessary to detect disease in plants?</h5>
+                <p>Detecting plant diseases early is crucial for maintaining healthy crops and ensuring food security.
+                    Early detection allows for timely intervention, which can prevent the spread of disease and minimize
+                    crop loss. By identifying diseases before symptoms become severe, farmers can apply targeted
+                    treatments, reducing the need for broad-spectrum pesticides and promoting sustainable agriculture.
+                    Accurate diagnosis is essential for effective disease management, saving time, resources, and
+                    ultimately protecting the environment.
+                </p>
+            </div>
 
-<a href="/index"></a>
-  <button class="bttn-pill bttn-lg btn-success"><b class="text-black">AI Engine</b></button>
-</a>
-
-<div class="grid grid-cols-4 gap-4 p-5 laptop">
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://post.healthline.com/wp-content/uploads/2020/09/Do_Apples_Affect_Diabetes_and_Blood_Sugar_Levels-732x549-thumbnail-1-732x549.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Apple</p>
-      </center>
+            <div class="p-5 bg-white shadow-lg rounded-lg h-full">
+                <h5 class="font-bold">Prevent Plant Disease: Follow the steps below:</h5>
+                <ol class="list-decimal ml-5">
+                    <li>Maintain proper plant spacing to ensure good air circulation.</li>
+                    <li>Water plants at the base to avoid wetting the foliage.</li>
+                    <li>Use disease-resistant plant varieties.</li>
+                    <li>Keep garden tools clean to prevent the spread of pathogens.</li>
+                    <li>Remove and dispose of infected plant material promptly.</li>
+                    <li>Apply mulch to reduce soil splashing onto leaves.</li>
+                    <li>Monitor plants regularly for signs of disease.</li>
+                </ol>
+                <a target="_blank" href="https://www.thespruce.com/prevent-plant-diseases-in-your-garden-2539511" class="underline decoration-2 underline-offset-4 text-green-600 text-center mt-4">
+                    More info
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://www.supermarketperimeter.com/ext/resources/0430-blueberries.png?t=1588260305&width=1080" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Blueberry</p>
-      </center>
-    </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/health_benefits_of_cherries_slideshow/1800x1200_health_benefits_of_cherries_slideshow.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Cherry</p>
-      </center>
-    </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://www.mayoclinichealthsystem.org/-/media/national-files/images/hometown-health/2018/corn.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Corn</p>
-      </center>
-    </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://i.ndtvimg.com/i/2015-09/grapes_625x350_61443376353.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Grape</p>
-      </center>
-    </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://www.irishtimes.com/polopoly_fs/1.3923226.1560339148!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Orange</p>
-      </center>
-    </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/the_health_benefits_of_peaches_slideshow/thinkstock_rf_peaches.jpg?resize=650px:*" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Peach</p>
-      </center>
-    </div>
-  </div>
-  <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg w-11/12 h-11/12">
-      <img src="https://snaped.fns.usda.gov/sites/default/files/styles/crop_ratio_7_5/public/seasonal-produce/2018-05/bell%20peppers.jpg?h=9f30bee3&itok=PKmzyeNv" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Pepper Bell</p>
-      </center>
-    </div>
-  </div>
-  <div class="col-span-1">
-    <div class="p-3 bg-white shadow rounded-lg">
-      <img src="https://m.economictimes.com/thumb/height-450,width-600,imgsize-111140,msid-72862126/potato-getty.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Potato</p>
-      </center>
-    </div>
-  </div>
-  <div class="col-span-1">
-    <div class="p-3 bg-white shadow rounded-lg">
-      <img src="https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/326/326272/raspberries-with-ketones-in-a-bowl.jpg?w=1155&h=1541" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Raspberry</p>
-      </center>
-    </div>
-  </div>
-  <div class="col-span-1">
-    <div class="p-3 bg-white shadow rounded-lg">
-      <img src="https://m.economictimes.com/thumb/msid-66988154,width-1200,height-900,resizemode-4,imgsize-211276/soyabean-agencies.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Soybean</p>
-      </center>
-    </div>
-  </div>
-  <div class="col-span-1">
-    <div class="p-3 bg-white shadow rounded-lg">
-      <img src="https://post.healthline.com/wp-content/uploads/2020/08/squash-fruit-or-vegetable-732x549-thumbnail-732x549.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Squash</p>
-      </center>
-    </div>
-  </div>
-  <div class="col-span-1">
-    <div class="p-3 bg-white shadow rounded-lg">
-      <img src="https://images.indianexpress.com/2020/02/strawberry-1200.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Strawberry</p>
-      </center>
-    </div>
-  </div>
-  <div class="col-span-1">
-    <div class="p-3 bg-white shadow rounded-lg">
-      <img src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg" width="250" height="250">
-      <center>
-        <p class="lead font-medium text-black">Tomato</p>
-      </center>
-    </div>
-  </div>
 </div>
 
 {% endblock body %}
