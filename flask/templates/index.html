@@ -29,24 +29,25 @@ AI Engine
             <div class="flex gap-4 w-full max-md:flex-col">
                 <div class="p-5 bg-white shadow-lg rounded-lg h-full">
                     <img 
+                        id="preview-image"
                         src="{{ url_for('static', filename='images/OIP.jpeg') }}" 
                         alt="Plant Image"
                         class="w-[150px] h-[150px] object-cover mx-auto mb-4 rounded-[100px]" 
                     />
-            
+                
                     <!-- Default file upload-->
-            
+                
                     <form action="/submit" method="POST" enctype="multipart/form-data" id="uploadForm">
                         <div class="mb-4">
                             <input type="file" id="actual-btn" hidden name="file" />
                             <label for="actual-btn" class="cursor-pointer text-blue-500">Choose File</label>
                             <span id="file-chosen" class="ml-2">No file chosen</span>
                         </div>
-            
+                
                         <!-- End -->
-            
+                
                         <h6 class="text-center mb-4 text-gray-500">
-                            Simply upload your plant's leaf image and then see the magic of AI.
+                            Simply upload your plant's leaf image and press submit.
                         </h6>
                         <div class="mt-4">
                             <h6 class="text-center mb-4 text-gray-500">Or drag and drop your file below:</h6>
@@ -54,13 +55,8 @@ AI Engine
                                 <p>Drag & Drop your file here</p>
                             </div>
                         </div>
-            
-                        <!-- Custom upload file-->
-                        <center>
-                            <button type="submit" class="btn btn-outline-success">Submit</button>
-                        </center>
+                        <button type="submit" class="flex w-full items-center justify-center h-[40px] text-white font-semibold mt-4 bg-green-500 rounded-[20px]">Submit</button>
                     </form>
-                    <!-- End -->
                 </div>
 
                 <div class="p-5 bg-white shadow-lg rounded-lg h-full">
@@ -74,7 +70,7 @@ AI Engine
                         <li>Apply mulch to reduce soil splashing onto leaves.</li>
                         <li>Monitor plants regularly for signs of disease.</li>
                     </ol>
-                    <a target="_blank" href="https://www.thespruce.com/prevent-plant-diseases-in-your-garden-2539511" class="underline decoration-2 underline-offset-4 text-green-800 text-center mt-4">
+                    <a target="_blank" href="https://www.thespruce.com/prevent-plant-diseases-in-your-garden-2539511" class="underline decoration-2 underline-offset-4 text-green-600 text-center mt-4">
                         More info
                     </a>
                 </div>
@@ -84,12 +80,20 @@ AI Engine
 </div>
 
 <script>
-    // Show chosen file name
+    // Show chosen file name and image preview
     const actualBtn = document.getElementById('actual-btn');
     const fileChosen = document.getElementById('file-chosen');
+    const previewImage = document.getElementById('preview-image');
 
     actualBtn.addEventListener('change', function() {
-        fileChosen.textContent = this.files[0].name;
+        const file = this.files[0];
+        fileChosen.textContent = file.name;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
     });
 
     // Drag and drop functionality
@@ -117,6 +121,12 @@ AI Engine
         const file = files[0];
         document.getElementById('actual-btn').files = files; // Set files to the input element
         fileChosen.textContent = file.name;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
     }
 </script>
 {% endblock body %}
