@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/OIP.jpeg') }}" type="image/jpg">
 </head>
 
-<body class="min-h-screen flex flex-col" style="background-image: url('/static/images/green-leaf-plant-18.jpg'); background-size: cover; background-position: center; background-color: rgba(0, 0, 0, 0.5); background-blend-mode: darken;">
+<body class="min-h-screen flex flex-col" style="background-image: url('/static/images/green-leaf-plant-18.jpg'); background-size: cover; background-position: center; background-color: rgba(0, 0, 0, 0.5); background-blend-mode: darken; background-attachment: fixed;">
     <nav class="flex justify-between items-center px-4 h-[50px] text-white font-semibold bg-transparent bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg">
         <div class="flex gap-4 items-center">
             <a href="/" class="{{ 'underline decoration-2 underline-offset-4 text-green-300' if request.path == '/' else '' }}">Home</a>
