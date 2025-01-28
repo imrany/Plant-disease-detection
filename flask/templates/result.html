@@ -5,8 +5,11 @@
 {% block body %}
 
 {% if error %}
-<div class="container mx-auto text-center text-white">
-  <h1 class="display-4 pt-8 font-light text-red-800"><b>Error: {{ error_message }}</b></h1>
+<div class="h-[90vh] flex items-center justify-center">
+  <div class="p-5 max-md:w-[80vw] w-[500px] h-[300px] bg-white flex flex-col items-center justify-center rounded-lg shadow-lg">
+    <p class="text-2xl text-red-600 font-bold">Error</p>
+    <p class="">{{ error }}</p>
+  </div>
 </div>
 {% else %}
 <div>
