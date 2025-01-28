@@ -4,8 +4,13 @@
 {% endblock pagetitle %}
 {% block body %}
 
+{% if error %}
+<div class="container mx-auto text-center text-white">
+  <h1 class="display-4 pt-8 font-light text-red-800"><b>Error: {{ error_message }}</b></h1>
+</div>
+{% else %}
 <div>
-  <div class="container mx-auto"></div>
+  <div class="container mx-auto">
     <!-- For demo purpose -->
     <div class="row mb-5 text-center text-white">
       <div class="col-lg-10 mx-auto">
@@ -13,7 +18,7 @@
       </div>
     </div>
     <center>
-      <div class="col"></div>
+      <div class="col">
         <div class="p-3 bg-white shadow-lg rounded-lg w-1/3">
           <img src={{image_url}} class="w-full h-auto">
         </div>
@@ -22,7 +27,7 @@
     <br>
     <div class="row">
       <div class="col mx-auto">
-        <div class="p-5 bg-white shadow-lg rounded-lg h-full"></div>
+        <div class="p-5 bg-white shadow-lg rounded-lg h-full">
           <h5><b>
               {% if pred==3 or pred==5 or pred==7 or pred==11 or pred==15 or pred==18 or pred==20 or pred==23 or
               pred==24 or pred==25 or pred==28 or pred==38 %}
@@ -67,7 +72,7 @@
             <br>
             <br>
             <h6>{{sname}}</h6>
-            <a target="_blank" href={{buy_link}}>
+            <a target="_blank" href={{buy_link}}></a>
               <button type="button" class="btn btn-success bg-green-800">Buy Product</button>
             </a>
           </center>
@@ -78,4 +83,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock body %}
