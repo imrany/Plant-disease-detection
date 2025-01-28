@@ -1,78 +1,82 @@
-<html>
 {% extends 'base.html' %}
 {% block pagetitle %}
 AI Engine
 {% endblock pagetitle %}
 
 {% block body %}
-<div>
-    <div class="container">
+<div class="mb-4">
+    <div class="container mx-auto p-4">
         <!-- For demo purpose -->
         <div class="row mb-5 text-center text-white">
             <div class="col-lg-10 mx-auto">
-                <h1 class="display-4" style="padding-top: 2%;font-weight: 400;color: rgb(4, 54, 4);"><b>🍀AI Engine🍀</b></h1>
-                <p class="lead" style="font-weight: 500;color: black;">Let AI Engine Will Help You To Detect Disease</p>
+                <h1 class="text-4xl font-bold text-green-300 py-4"><b>Detect</b></h1>
+                <p class="text-lg font-medium">Let's detect Disease</p>
             </div>
         </div>
         <!-- End -->
-        <div class="row ">
-            <div class="col mx-auto">
-                <div class="p-5 bg-white shadow rounded-lg" style="height: 95%;">
-
-                    <h5><b>Why is it necessary to detect disease in plant ?</b></h5>
-                    <p>Plant diseases affect the growth of their respective species. In addition, some research gaps are
-                        identified from which to obtain greater transparency for detecting diseases in plants, even
-                        before their symptoms appear clearly.
-                        diagnosis is one of the most important aspects of a plant pathologist's training. Without proper
-                        identification of the disease and the disease-causing agent, disease control measures can be a
-                        waste of time and money and can lead to further plant losses. Proper disease diagnosis is
-                        necessary.
-                    </p>
-                </div>
+        <div class="flex flex-col w-full gap-4">
+            <div class="p-5 bg-white shadow-lg rounded-lg h-full">
+                <h5 class="font-bold">Why is it necessary to detect disease in plants?</h5>
+                <p>Detecting plant diseases early is crucial for maintaining healthy crops and ensuring food security.
+                    Early detection allows for timely intervention, which can prevent the spread of disease and minimize
+                    crop loss. By identifying diseases before symptoms become severe, farmers can apply targeted
+                    treatments, reducing the need for broad-spectrum pesticides and promoting sustainable agriculture.
+                    Accurate diagnosis is essential for effective disease management, saving time, resources, and
+                    ultimately protecting the environment.
+                </p>
             </div>
-            <div class="col mx-auto">
-                <div class="p-5 bg-white shadow rounded-lg" style="height: 95%;"><img
-                        src="https://www.pngjoy.com/pngl/250/4840262_plants-png-indoors-tropical-plant-png-hd-png.png "
-                        height="300" alt="" width="200" class="d-block mx-auto mb-4 rounded-pill">
 
-                    <!-- Default bootstrap file upload-->
-
-                    <form action="/submit" method="POST" enctype="multipart/form-data">
-                        <div class="custom-file overflow-hidden mb-4">
-                            <input type="file" id="actual-btn" hidden name="image" />
-                            <label for="actual-btn">Choose File</label>
-                            <span id="file-chosen">No file chosen</span>
+            <div class="flex gap-4 w-full max-md:flex-col">
+                <div class="p-5 bg-white shadow-lg rounded-lg h-full">
+                    <img 
+                        src="{{ url_for('static', filename='images/OIP.jpeg') }}" 
+                        alt="Plant Image"
+                        class="w-[150px] h-[150px] object-cover mx-auto mb-4 rounded-[100px]" 
+                    />
+            
+                    <!-- Default file upload-->
+            
+                    <form action="/submit" method="POST" enctype="multipart/form-data" id="uploadForm">
+                        <div class="mb-4">
+                            <input type="file" id="actual-btn" hidden name="file" />
+                            <label for="actual-btn" class="cursor-pointer text-blue-500">Choose File</label>
+                            <span id="file-chosen" class="ml-2">No file chosen</span>
                         </div>
-
+            
                         <!-- End -->
-
-                        <h6 class="text-center mb-4 text-muted">
+            
+                        <h6 class="text-center mb-4 text-gray-500">
                             Simply upload your plant's leaf image and then see the magic of AI.
                         </h6>
-
-                        <!-- Custom bootstrap upload file-->
+                        <div class="mt-4">
+                            <h6 class="text-center mb-4 text-gray-500">Or drag and drop your file below:</h6>
+                            <div id="drop-area" class="border-dashed border-2 border-gray-400 p-4 text-center">
+                                <p>Drag & Drop your file here</p>
+                            </div>
+                        </div>
+            
+                        <!-- Custom upload file-->
                         <center>
-                            <a class="mx-2"><button type="submit" class="btn btn-outline-success">Submit</button></a>
+                            <button type="submit" class="btn btn-outline-success">Submit</button>
                         </center>
                     </form>
                     <!-- End -->
-
                 </div>
-            </div>
-            <div class="col mx-auto">
-                <div class="p-5 bg-white shadow rounded-lg" style="height: 95%;">
-                    <h5><b>Prevent Plant Disease follow below steps:</b></h5>
-                    <ol>
-                        <li>Follow Good Sanitation Practices.</li>
-                        <li>Fertilize to Keep Your Plants Healthy.</li>
-                        <li>Inspect Plants for Diseases Before You Bring Them Home.</li>
-                        <li>Allow the Soil to Warm Before Planting.</li>
-                        <li>Ensure a Healthy Vegetable Garden By Rotating Crops.</li>
-                        <li>Provide Good Air Circulation</li>
-                        <li>Remove Diseased Stems and Foliage</li>
+
+                <div class="p-5 bg-white shadow-lg rounded-lg h-full">
+                    <h5 class="font-bold">Prevent Plant Disease: Follow the steps below:</h5>
+                    <ol class="list-decimal ml-5">
+                        <li>Maintain proper plant spacing to ensure good air circulation.</li>
+                        <li>Water plants at the base to avoid wetting the foliage.</li>
+                        <li>Use disease-resistant plant varieties.</li>
+                        <li>Keep garden tools clean to prevent the spread of pathogens.</li>
+                        <li>Remove and dispose of infected plant material promptly.</li>
+                        <li>Apply mulch to reduce soil splashing onto leaves.</li>
+                        <li>Monitor plants regularly for signs of disease.</li>
                     </ol>
-                    <a target="_blank" href="https://www.thespruce.com/prevent-plant-diseases-in-your-garden-2539511"
-                        class="mx-2"><button type="button" class="btn btn-outline-success">More info</button></a>
+                    <a target="_blank" href="https://www.thespruce.com/prevent-plant-diseases-in-your-garden-2539511" class="underline decoration-2 underline-offset-4 text-green-800 text-center mt-4">
+                        More info
+                    </a>
                 </div>
             </div>
         </div>
@@ -80,13 +84,39 @@ AI Engine
 </div>
 
 <script>
+    // Show chosen file name
     const actualBtn = document.getElementById('actual-btn');
-
     const fileChosen = document.getElementById('file-chosen');
 
-    actualBtn.addEventListener('change', function () {
-        fileChosen.textContent = this.files[0].name
-    })
-</script>
+    actualBtn.addEventListener('change', function() {
+        fileChosen.textContent = this.files[0].name;
+    });
 
+    // Drag and drop functionality
+    const dropArea = document.getElementById('drop-area');
+    const uploadForm = document.getElementById('uploadForm');
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        handleFiles(files);
+    }
+
+    function handleFiles(files) {
+        const file = files[0];
+        document.getElementById('actual-btn').files = files; // Set files to the input element
+        fileChosen.textContent = file.name;
+    }
+</script>
 {% endblock body %}
