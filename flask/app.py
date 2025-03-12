@@ -10,6 +10,12 @@ import numpy as np
 import torch
 import pandas as pd
 import io
+import requests  # For making HTTP requests to Gemini
+from dotenv import load_dotenv
+
+load_dotenv()# Load environment variables from a .env file
+
+API_KEY = os.getenv('API_KEY')  # Replace with your actual API key
 
 print(torch.__version__)
 disease_info = pd.read_csv('disease_info.csv', encoding='cp1252')
@@ -108,10 +114,11 @@ def submitJson():
         }
     }), 200
 
-@app.route('/submit', methods=['POST','GET'])
+@app.route('/submit', methods=['POST', 'GET'])
 def submit():
     global image_path
     
+    # Handle file uploads
     if 'file' in request.files:
         file = request.files['file']
         if file.filename == '':
@@ -126,6 +133,8 @@ def submit():
             image.save(image_path)
         except (ValueError, IOError) as e:
             return jsonify({'error': str(e)}), 400
+    
+    # Handle base64-encoded image data
     elif request.json and 'image' in request.json:
         image_data = request.json['image']
         try:
@@ -135,13 +144,43 @@ def submit():
                 image_file.write(image_bytes)
         except (ValueError, IOError) as e:
             return jsonify({'error': str(e)}), 400
+
+    # If no valid input is provided
     else:
         return jsonify({'error': 'No image data found'}), 400
 
+    # Use the prediction function to analyze the image
     pred = prediction(image_path)
     print(pred, image_path)
+
+    # Gemini API POST request to fetch the description
+    gemini_prompt = f"Provide a detailed description for {disease_info['disease_name'][pred]}"
+    gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    headers = {
+        "Authorization": f"Bearer {GEMINI_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "contents": [{
+            "parts": [{
+                "text": gemini_prompt
+            }]
+        }]
+    }
+
+    # Call Gemini API
+    try:
+        gemini_response = requests.post(gemini_url, headers=headers, json=payload)
+        gemini_response.raise_for_status()  # Raise an error if the request fails
+        gemini_data = gemini_response.json()
+
+        # Extracting the description from Gemini's response
+        description = gemini_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "No description available")
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': f"Gemini API error: {e}"}), 500
+
+    # Populate fields for rendering
     title = disease_info['disease_name'][pred]
-    description = disease_info['description'][pred]
     prevent = disease_info['Possible Steps'][pred]
     image_url = disease_info['image_url'][pred]
     supplement_name = supplement_info['supplement name'][pred]
